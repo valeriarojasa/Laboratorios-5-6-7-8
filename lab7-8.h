@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define T 3
 
@@ -9,6 +10,8 @@ typedef struct _nodo {
   char claves[2*T - 1];
   struct _nodo *hijo[2*T];
 }ArbolB;
+
+ArbolB *EscribirEnDisco(ArbolB *x);
 
 ArbolB *CrearArbolB(){
    ArbolB *a = (ArbolB *)malloc(sizeof(ArbolB));
@@ -60,6 +63,36 @@ void Buscar(ArbolB *x, int k){
   }
 
 }
+ArbolB *EscribirEnDisco(ArbolB *raiz){
+  ArbolB *x = raiz;
+  char *str = "D:\\Escritorio\\Laboratorios progra\\nodo\\nodos";
+  char extension[] = ".txt";
+
+  int i = strlen(str);
+  char *direccion = malloc(i + 1 + 1 );
+  strcpy(direccion, str);
+  direccion[i] = x->claves[0];
+  direccion[i + 1] = '\0';
+  strcat(direccion,extension);
+
+  FILE *fd;
+
+  printf("%s",direccion);
+
+  fd = fopen(direccion,"w");
+
+  if(fd == NULL){
+    printf("Error al crear el archivo");
+  }
+  else{
+    fprintf(fd,"%i\n",x->n);
+    fprintf(fd,"%i\n",x->hoja);
+    for(i = 0; i < x->n; i++){
+        fprintf(fd,"%c ",x->claves[i]);
+    }
+  }
+return x;
+}
 
 ArbolB *DividirNodo (ArbolB *x, int i, ArbolB *y) {
     int j;
@@ -92,7 +125,11 @@ ArbolB *DividirNodo (ArbolB *x, int i, ArbolB *y) {
 
     x->n++;
 
+	EscribirEnDisco(x);
+	EscribirEnDisco(y);
+    EscribirEnDisco(z);
 
+    
    return x;
 }
 
@@ -141,6 +178,3 @@ ArbolB *insertar (ArbolB *raiz, char claves) {
    }
 }
 
-void CrearArchivos(ArbolB *x){
-  
-}
