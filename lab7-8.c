@@ -3,33 +3,49 @@
 #include "lab7_8.h"
 
 int main(){
-   ArbolB *a = CrearArbolB(); int opcion;
+   ArbolB *a = CrearArbolB();
+   char c,band;
+   int i = 0,j = 0,opcion;
+   printf("1. Insertar caracteres directo del programa\n2. Obtener Arbol desde archivos\nPresione cualquier otra letra para finalizar la ejecucion\nRespuesta: ");
+   scanf("%i",&opcion);
 
-   a = insertar(a, '0');
-   a = insertar(a, '1');
-   a = insertar(a, '2');
-   a = insertar(a, '3');
-   a = insertar(a, '4');
-   a = insertar(a, '5');
-   a = insertar(a, '6');
-   a = insertar(a, '7');
-   a = insertar(a, '8');
-   a = insertar(a, '9');
+   printf("\n\n");
 
-printf("\t\t\tMENU\n\n[1]->Imprimir arbol B\n[2]->Buscar clave en arbol B\nPresione cualquier otra tecla para finalizar la ejecucion\nRespuesta: ");
-scanf("%i",&opcion);
+   if(opcion == 1){
+      a = insertar(a, '0');
+      a = insertar(a, '1');
+      a = insertar(a, '2');
+      a = insertar(a, '3');
+      a = insertar(a, '4');
+      a = insertar(a, '5');
+    }
+    else{
+      if(opcion == 2){
+        while(j < 3){
+          if(band == 'V'){
+            c = LeerEnDisco(a,&i,&j,&band);
+            a = insertar(a,c);
+          }
+          else{
+            j++;
+            band = 'V';
+          }
+        }
+      }
+      else{
+        if(opcion != 1 && opcion != 2){
+        	system("cls");
+          printf("\n\nIntente nuevamente\n\n");
+          return main();
+        }
+      }
+    }
 
-if(opcion==1){
-	system("cls");
-    ImprimirArbolB(a,2);
-	return main();
-	}
-if(opcion == 2){
-   system("cls");
-   Buscar(a,'5');
-   return main();
-	}
-if(opcion != 1 || 2){
-   return 0;
-   }
+printf("\n\n");
+
+  ImprimirArbolB(a,2);
+
+  Buscar(a,'4');
+  
+	return 0;
 }
