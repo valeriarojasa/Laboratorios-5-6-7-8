@@ -94,6 +94,41 @@ ArbolB *EscribirEnDisco(ArbolB *raiz){
 return x;
 }
 
+char LeerEnDisco(ArbolB *raiz,int *i,int *j,char *band){
+  ArbolB *x = raiz;
+  char *str = "D:\\Escritorio\\Laboratorios progra\\nodo\\nodos",extension[] = ".txt",c;
+  int cont;
+
+  cont = strlen(str);
+  char *direccion = malloc(cont + 2);
+  strcpy(direccion, str);
+  c = *i + '0';
+  direccion[cont] = c;
+  direccion[cont + 1] = '\0';
+  strcat(direccion,extension);
+  FILE *fd;
+
+  printf("\n%s",direccion);
+
+  fd = fopen(direccion,"r");
+
+  if(fd == NULL){
+    *i = *i + 1;
+    *band = 'F';
+    return c;
+  }
+  else{
+    while(!feof(fd)){
+        c = fgetc(fd);
+        *i = *i + 1;
+        *band = 'V';
+        return c;
+      }
+    }
+
+  fclose(fd);
+}
+
 ArbolB *DividirNodo (ArbolB *x, int i, ArbolB *y) {
     int j;
     ArbolB *z = CrearArbolB();
